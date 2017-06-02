@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingDBMS", "ParkingDBMS\ParkingDBMS.csproj", "{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckStates_py", "CheckStates_py\CheckStates_py.csproj", "{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Release|Win32.ActiveCfg = Release|Any CPU
+		{8F5FECBE-FA05-4CA9-902F-FBBDFC884CBB}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Release|Win32.ActiveCfg = Release|Any CPU
+		{EB7E4469-B8D2-459D-97E0-0487FA6BA9AB}.Release|x64.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
