@@ -15,6 +15,7 @@ using System.Diagnostics;
 using ParkingDBMS.WCFService;
 using CheckStates_py;
 using ParkingDBMS.HelpMenu;
+using ParkingDBMS.信息发布菜单;
 
 namespace ParkingDBMS
 {
@@ -24,10 +25,12 @@ namespace ParkingDBMS
         {
             InitializeComponent();
             SqlConn = new SqlConnection();  //数据库连接初始化
+            stop_refresh_screen = false;
             appRunFile = new StreamWriter("运行日志.txt", true, Encoding.Unicode);
             appRunFile.WriteLine("**********************************************************");
             appRunFile.WriteLine("[{0}] 打开系统", DateTime.Now.ToString());
             appRunFile.Close();
+            stopcmd = "";
             
         }
 
@@ -137,7 +140,7 @@ namespace ParkingDBMS
         private void OnTreeViewShowTable(object sender, TreeNodeMouseClickEventArgs e)
         {
             //判断选择的控件是否为空 或者选择的是根节点
-            if (this.treeView_DataBase.SelectedNode == null || this.treeView_DataBase.SelectedNode.Text.Equals(SqlConn.Database))
+            if (this.treeView_DataBase.SelectedNode == null || this.treeView_DataBase.SelectedNode == this.treeView_DataBase.Nodes[0])
                 return;
             string tablename = this.treeView_DataBase.SelectedNode.Text;    //获取选择的节点的显示文本
             SqlCmd = new SqlCommand("select * from " + tablename, SqlConn); //初始化一个SQL语句，从数据库中查找出该表中的所有记录
@@ -305,64 +308,6 @@ namespace ParkingDBMS
 
         }
 
-        //已经弃用，根据指定的文件更新数据库
-        private void updateDBbyFile(string filename)
-        {
-            StreamReader sreader = new StreamReader(filename, Encoding.ASCII);
-            appRunFile.WriteLine("[{0}] 当前选择的更新文件名：{1}", DateTime.Now.ToString(), filename);
-            string data = "";
-            char[] split_c = { '\t' };    //定义分隔符
-            string tabblename = sreader.ReadLine(); //首先将首行读取出来,获得更新的表的名称
-            //校验文件格式，防止文件为空
-            if (tabblename == null)
-            {
-                //MessageBox.Show("文件格式错误" + "\n自动更新模块即将停止", "错误");
-                appRunFile.WriteLine("[{0}] 文件格式错误", DateTime.Now.ToString());
-                StopThread();
-                return;
-            }
-            string[] colunms = sreader.ReadLine().Split(split_c);   //将第二行读取出来获得每一列的名称
-            //如果每次读取的每行数据不是空字符，则继续处理。否则认为数据已经处理到最后
-            while ((data = sreader.ReadLine()) != "" && data != null)
-            {
-                //将文件数据分离成单独的数据项
-                string[] data_cob = data.Split(split_c, StringSplitOptions.RemoveEmptyEntries);
-                //校验文件格式
-                if (data_cob.Length != 3)
-                {
-                    //MessageBox.Show("文件格式错误" + "\n自动更新模块即将停止", "错误");
-                    appRunFile.WriteLine("[{0}] 文件格式错误", DateTime.Now.ToString());
-                    StopThread();
-                    return;
-                }
-                string ParkingID = data_cob[0];
-                string PositionID = data_cob[1];
-                int state = int.Parse(data_cob[2]);
-                //利用SQL语句更新数据库
-                string SQLString = "update " + tabblename + " set state=" + state.ToString()
-                    + " where " + colunms[0] + "='" + ParkingID + "' and " + colunms[1] + "='" + PositionID + "'";
-                SqlCmd = new SqlCommand(SQLString, SqlConn);
-                try
-                {
-                    if (SqlCmd.ExecuteNonQuery() == 0)
-                    {//说明数据库中不存在该记录，应当插入该记录
-                        //设置新的SQL语句
-                        SQLString = "insert into " + tabblename + " values('" + ParkingID + "', '" + PositionID + "', " + state + ");";
-                        SqlCmd.CommandText = SQLString;
-                        SqlCmd.ExecuteNonQuery();   //执行SQL语句
-                    }
-                }
-                catch (Exception e_SQLcmd)
-                {
-                    //如果数据库操作失败，则通知用户，同时还将编辑菜单开始设置成激活，停止设置成不可用
-                    //MessageBox.Show(e_SQLcmd.Message + "\n自动更新模块即将停止", "读数据库操作失败");
-                    appRunFile.WriteLine("[{0}] 读数据库操作失败：{1}", DateTime.Now.ToString(), e_SQLcmd.Message);
-                    StopThread();
-                }
-            }//对单个文件一行一行读取并修改数据库结束
-            //关闭文件
-            sreader.Close();
-        }
         /// <summary>停止当前线程 
         /// 同时还将编辑菜单开始设置成激活，停止设置成不可用
         /// </summary>
@@ -403,43 +348,6 @@ namespace ParkingDBMS
             }
         }
 
-        private void 由视频生成文件ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (autoCheckSys == null || autoCheckSys.IsDisposed)
-            {
-                autoCheckSys = new Form_AutoChecksys();
-            }
-            autoCheckSys.Show();
-            autoCheckSys.Activate();
-            
-            return;
-
-            //step1 打开文件对话框，让用户选择需要读取的视频文件
-            OpenFileDialog filepath = new OpenFileDialog();
-            filepath.Filter = "视频文件|*.AVI";
-            filepath.FilterIndex = 1;
-            filepath.InitialDirectory = @"\ParkingVideo";
-            if (filepath.ShowDialog() == DialogResult.OK)
-            {
-                //step2 检测当前文件是否已经在读取
-                foreach(Thread td in Thread_list)
-                {
-                    if (td.Name.Equals(filepath.FileName))
-                    {
-                        MessageBox.Show("该文件正在读取中", "错误");
-                        return;
-                    }
-                }
-                //step3 新建一个线程，在线程中调用外部EXE执行视频检测工作
-                Thread newThread = new Thread(ParkingDetect);
-                newThread.Name = filepath.FileName; //设置线程名称，防止有重复的检测
-                //step4 将当前线程加入到线程列表中，方便管理
-                Thread_list.Add(newThread);
-                this.toolStripStatusLabel_LeftPlotsCount.Text = "视频更新状态：" + Thread_list.Count.ToString();    //刷新状态栏，表明当前有多少视频在处理中
-                //step5 开始线程，将视频文件的路径传入
-                newThread.Start(filepath.FileName);
-            }
-        }
 
         void ParkingDetect(Object path)
         {
@@ -677,5 +585,217 @@ namespace ParkingDBMS
             return;
         }
 
+        private void toolStripButton_ShowParkInfo_Click(object sender, EventArgs e)
+        {
+            //如果数据库尚未连接，则不进行任何操作
+            if (SqlConn == null || SqlConn.State != ConnectionState.Open)
+            {
+                return;
+            }
+            
+            if (!AddTabPage("tabPage_ParkInfo", "停车位详细信息"))
+            {
+                return;
+            }
+
+            //向DataGridView添加数据
+            Thread refreshDGV_ParkInfo = new Thread(RefreshDGV_ParkInfo);
+            refreshDGV_ParkInfo.Name = "更新显示停车位详细信息";
+            refreshDGV_ParkInfo.Start("select * from View_Camera_Position # tabPage_ParkInfo");
+            Thread_list.Add(refreshDGV_ParkInfo);
+
+
+        }
+
+        /// <summary>
+        /// 封装构造TabPage 并向其中添加DataGridView方法
+        /// </summary>
+        /// <param name="name">TabPage的名称</param>
+        /// <param name="text">TabPage的显示的文本</param>
+        private bool AddTabPage(string name, string text)
+        {
+            //保证只会添加一次tabpage控件
+            foreach (Control controls in this.tabControl_ShowTables.Controls)
+            {
+                if (controls.Name.Equals(name))
+                {
+                    this.tabControl_ShowTables.SelectTab(controls.Name);
+                    return false;
+                }
+            }
+            //创建一个tabPage来显示停车位的详细信息
+            TabPage tabPage_ParkInfo = new TabPage();
+            tabPage_ParkInfo.Location = new System.Drawing.Point(4, 22);
+            tabPage_ParkInfo.Name = name;
+            tabPage_ParkInfo.Padding = new System.Windows.Forms.Padding(3);
+            tabPage_ParkInfo.Size = new System.Drawing.Size(470, 288);
+            tabPage_ParkInfo.TabIndex = 1;
+            tabPage_ParkInfo.Text = text;
+            tabPage_ParkInfo.UseVisualStyleBackColor = true;
+
+            //////////////////////////////////////////////////////////////////////////
+            DataGridViewCellStyle DGVCellStyle = new DataGridViewCellStyle();
+            DGVCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            DGVCellStyle.BackColor = Color.Silver;
+            DGVCellStyle.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(134)));
+            DGVCellStyle.ForeColor = SystemColors.ControlText;
+            DGVCellStyle.SelectionBackColor = SystemColors.Highlight;
+            DGVCellStyle.SelectionForeColor = SystemColors.HighlightText;
+            DGVCellStyle.WrapMode = DataGridViewTriState.False;
+
+            //为tabpage添加一个DataGridView，用来存储和显示停车位详细信息
+            DataGridView DGV_ParkInfo = new DataGridView();
+            DGV_ParkInfo.AllowUserToAddRows = false;
+            DGV_ParkInfo.AllowUserToDeleteRows = false;
+            DGV_ParkInfo.ReadOnly = true;
+            DGV_ParkInfo.DefaultCellStyle = DGVCellStyle;
+            DGV_ParkInfo.BackgroundColor = System.Drawing.Color.LightGray;
+            DGV_ParkInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            DGV_ParkInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            //DGV_ParkInfo.ContextMenuStrip = this.contextMenuStrip_InGridView;
+            DGV_ParkInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            DGV_ParkInfo.Enabled = true;
+            DGV_ParkInfo.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            DGV_ParkInfo.Location = new System.Drawing.Point(3, 3);
+            DGV_ParkInfo.Name = "dataGridView_tables";
+            DGV_ParkInfo.RowTemplate.Height = 23;
+            DGV_ParkInfo.Size = new System.Drawing.Size(464, 282);
+
+            DGV_ParkInfo.RowPostPaint += new DataGridViewRowPostPaintEventHandler(dataGridView_tables_RowPostPaint);
+
+            tabPage_ParkInfo.Controls.Add(DGV_ParkInfo);
+            this.tabControl_ShowTables.Controls.Add(tabPage_ParkInfo);
+            this.tabControl_ShowTables.SelectTab(tabPage_ParkInfo.Name);
+
+            return true;
+        }
+
+        void DGV_ParkInfo_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void RefreshDGV_ParkInfo(object parameters)
+        {
+            string[] parameter = (parameters as string).Split(new char[] { '#' }, 3);
+            SqlConnection sConnection = new SqlConnection(connectionString);
+            sConnection.Open();
+            while (true)
+            {
+                SqlDataAdapter sDAdapter = new SqlDataAdapter(parameter[0], sConnection); //将查询语句复制给SQL数据适配器，得到执行结果数据集
+                DataTable DTable = new DataTable("ParkInfo");
+                sDAdapter.Fill(DTable);    //将SQL执行结果填充到数据列表中
+                sDAdapter.Dispose();
+                
+                this.Invoke(new Action(delegate()
+                {
+                    //
+                    (this.tabControl_ShowTables.Controls.Find(parameter[1].Trim(), false)[0].Controls[0] as DataGridView).DataSource = DTable;//将数据列表与显示窗口相关联
+                    this.tabControl_ShowTables.Invalidate();  //刷新显示窗口
+                }));
+                DTable.Dispose();
+                Thread.Sleep(500);
+
+                if (stop_refresh_screen || parameter[0].Equals(stopcmd))
+                {
+                    break;
+                }
+            }
+            sConnection.Close();
+                        
+        }
+
+        private void toolStripButton_Choose_Click(object sender, EventArgs e)
+        {
+            //如果数据库尚未连接，则不进行任何操作
+            if (SqlConn == null || SqlConn.State != ConnectionState.Open)
+            {
+                return;
+            }
+
+            string tabpage_text = "";
+            string cmd = "";
+            if (this.toolStripComboBox_FindCondition.SelectedIndex == 0)
+            {
+                tabpage_text = "空闲车位信息";
+                cmd = "select * from View_Camera_Position where state = 0";
+                if (stopcmd == "select * from View_Camera_Position where state = 1")
+                {
+                    return;
+                }
+                stopcmd = "select * from View_Camera_Position where state = 1";
+            }
+            else if (this.toolStripComboBox_FindCondition.SelectedIndex == 1)
+            {
+                tabpage_text = "被占用车位信息";
+                cmd = "select * from View_Camera_Position where state = 1";
+                if (stopcmd == "select * from View_Camera_Position where state = 0")
+                {
+                    return;
+                }
+                stopcmd = "select * from View_Camera_Position where state = 0";
+            }
+            else
+            {
+                return;
+            }
+
+            if (!AddTabPage("tabPage_Choose", tabpage_text))
+            {
+                this.tabControl_ShowTables.Controls.Find("tabPage_Choose", false)[0].Text = tabpage_text;
+            }
+
+            //利用线程自动更新，向DataGridView添加数据
+            Thread refreshDGV_ParkInfo = new Thread(RefreshDGV_ParkInfo);
+            refreshDGV_ParkInfo.Name = "更新显示选择的停车位详细信息";
+            refreshDGV_ParkInfo.Start(cmd + "# tabPage_Choose");
+            Thread_list.Add(refreshDGV_ParkInfo);
+
+        }
+
+        private void 停止刷新界面ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.停止刷新界面ToolStripMenuItem.Text.Equals("停止刷新界面"))
+            {
+                stop_refresh_screen = true;
+                this.停止刷新界面ToolStripMenuItem.Text = "开始刷新界面";
+            }
+            else
+            {
+                stop_refresh_screen = false;
+                this.停止刷新界面ToolStripMenuItem.Text = "停止刷新界面";
+            }
+        }
+
+        private void dataGridView_tables_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
+
+            var centerFormat = new StringFormat()
+            {
+                // right alignment might actually make more sense for numbers  
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);  
+        }
+
+        private void 条件查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConditionalChoose ChooseForm = new ConditionalChoose(connectionString);
+            if (ChooseForm.ShowDialog() != DialogResult.OK)
+            {
+                
+            }
+            ;
+        }
+
+        private void toolStripButton_条件查询_Click(object sender, EventArgs e)
+        {
+            this.条件查询ToolStripMenuItem_Click(sender, e);
+        }
     }
 }

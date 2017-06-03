@@ -68,7 +68,10 @@
             this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.开启自动更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.停止自动更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.停止刷新界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.停车位检测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.开启视频检测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.云端ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.上传ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.到屏幕ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,10 +81,8 @@
             this.自动更新程序状态toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_LeftPlotsCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip_main = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton_connection = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton_StartUpdate = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton_stopUpdate = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripComboBox_FindCondition = new System.Windows.Forms.ToolStripComboBox();
             this.splitContainer_main = new System.Windows.Forms.SplitContainer();
             this.treeView_DataBase = new System.Windows.Forms.TreeView();
             this.tabControl_ShowTables = new System.Windows.Forms.TabControl();
@@ -91,7 +92,13 @@
             this.toolStripMenuItem_delete = new System.Windows.Forms.ToolStripMenuItem();
             this.保存到数据库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.从数据库属性列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.开启视频检测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.条件查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton_connection = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_StartUpdate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_stopUpdate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_ShowParkInfo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_Choose = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_条件查询 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip_main.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip_main.SuspendLayout();
@@ -115,7 +122,7 @@
             this.帮助ToolStripMenuItem});
             this.menuStrip_main.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_main.Name = "menuStrip_main";
-            this.menuStrip_main.Size = new System.Drawing.Size(784, 25);
+            this.menuStrip_main.Size = new System.Drawing.Size(619, 25);
             this.menuStrip_main.TabIndex = 0;
             this.menuStrip_main.Text = "menuStrip_main";
             // 
@@ -158,7 +165,9 @@
             // 
             this.编辑ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.开启自动更新ToolStripMenuItem,
-            this.停止自动更新ToolStripMenuItem});
+            this.停止自动更新ToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.停止刷新界面ToolStripMenuItem});
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
             this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.编辑ToolStripMenuItem.Text = "自动更新";
@@ -167,7 +176,7 @@
             // 
             this.开启自动更新ToolStripMenuItem.Enabled = false;
             this.开启自动更新ToolStripMenuItem.Name = "开启自动更新ToolStripMenuItem";
-            this.开启自动更新ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.开启自动更新ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.开启自动更新ToolStripMenuItem.Text = "开启自动更新";
             this.开启自动更新ToolStripMenuItem.Click += new System.EventHandler(this.开启自动更新ToolStripMenuItem_Click);
             // 
@@ -175,9 +184,21 @@
             // 
             this.停止自动更新ToolStripMenuItem.Enabled = false;
             this.停止自动更新ToolStripMenuItem.Name = "停止自动更新ToolStripMenuItem";
-            this.停止自动更新ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.停止自动更新ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.停止自动更新ToolStripMenuItem.Text = "停止自动更新";
             this.停止自动更新ToolStripMenuItem.Click += new System.EventHandler(this.停止自动更新ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(145, 6);
+            // 
+            // 停止刷新界面ToolStripMenuItem
+            // 
+            this.停止刷新界面ToolStripMenuItem.Name = "停止刷新界面ToolStripMenuItem";
+            this.停止刷新界面ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.停止刷新界面ToolStripMenuItem.Text = "停止刷新界面";
+            this.停止刷新界面ToolStripMenuItem.Click += new System.EventHandler(this.停止刷新界面ToolStripMenuItem_Click);
             // 
             // 停车位检测ToolStripMenuItem
             // 
@@ -187,11 +208,19 @@
             this.停车位检测ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.停车位检测ToolStripMenuItem.Text = "停车位检测";
             // 
+            // 开启视频检测ToolStripMenuItem
+            // 
+            this.开启视频检测ToolStripMenuItem.Name = "开启视频检测ToolStripMenuItem";
+            this.开启视频检测ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.开启视频检测ToolStripMenuItem.Text = "开启视频检测";
+            this.开启视频检测ToolStripMenuItem.Click += new System.EventHandler(this.开启视频检测ToolStripMenuItem_Click);
+            // 
             // 云端ToolStripMenuItem
             // 
             this.云端ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.上传ToolStripMenuItem,
-            this.到屏幕ToolStripMenuItem});
+            this.到屏幕ToolStripMenuItem,
+            this.条件查询ToolStripMenuItem});
             this.云端ToolStripMenuItem.Name = "云端ToolStripMenuItem";
             this.云端ToolStripMenuItem.Size = new System.Drawing.Size(104, 21);
             this.云端ToolStripMenuItem.Text = "停车位信息发布";
@@ -199,14 +228,14 @@
             // 上传ToolStripMenuItem
             // 
             this.上传ToolStripMenuItem.Name = "上传ToolStripMenuItem";
-            this.上传ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.上传ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.上传ToolStripMenuItem.Text = "上传";
             this.上传ToolStripMenuItem.Click += new System.EventHandler(this.上传ToolStripMenuItem_Click);
             // 
             // 到屏幕ToolStripMenuItem
             // 
             this.到屏幕ToolStripMenuItem.Name = "到屏幕ToolStripMenuItem";
-            this.到屏幕ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.到屏幕ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.到屏幕ToolStripMenuItem.Text = "到屏幕";
             this.到屏幕ToolStripMenuItem.Click += new System.EventHandler(this.到屏幕ToolStripMenuItem_Click);
             // 
@@ -230,9 +259,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.自动更新程序状态toolStripStatusLabel,
             this.toolStripStatusLabel_LeftPlotsCount});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 539);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 366);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(619, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -240,8 +269,8 @@
             // 
             this.自动更新程序状态toolStripStatusLabel.ForeColor = System.Drawing.Color.DarkRed;
             this.自动更新程序状态toolStripStatusLabel.Name = "自动更新程序状态toolStripStatusLabel";
-            this.自动更新程序状态toolStripStatusLabel.Size = new System.Drawing.Size(140, 17);
-            this.自动更新程序状态toolStripStatusLabel.Text = "自动更新程序状态：关闭";
+            this.自动更新程序状态toolStripStatusLabel.Size = new System.Drawing.Size(116, 17);
+            this.自动更新程序状态toolStripStatusLabel.Text = "自动更新状态：关闭";
             // 
             // toolStripStatusLabel_LeftPlotsCount
             // 
@@ -256,12 +285,150 @@
             this.toolStripButton_connection,
             this.toolStripButton_StartUpdate,
             this.toolStripButton_stopUpdate,
-            this.toolStripSeparator2});
+            this.toolStripSeparator2,
+            this.toolStripButton_ShowParkInfo,
+            this.toolStripComboBox_FindCondition,
+            this.toolStripButton_Choose,
+            this.toolStripButton_条件查询});
             this.toolStrip_main.Location = new System.Drawing.Point(0, 25);
             this.toolStrip_main.Name = "toolStrip_main";
-            this.toolStrip_main.Size = new System.Drawing.Size(784, 25);
+            this.toolStrip_main.Size = new System.Drawing.Size(619, 25);
             this.toolStrip_main.TabIndex = 2;
             this.toolStrip_main.Text = "toolStrip_main";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripComboBox_FindCondition
+            // 
+            this.toolStripComboBox_FindCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox_FindCondition.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.toolStripComboBox_FindCondition.Items.AddRange(new object[] {
+            "空闲车位",
+            "占用车位",
+            "条件查询"});
+            this.toolStripComboBox_FindCondition.Name = "toolStripComboBox_FindCondition";
+            this.toolStripComboBox_FindCondition.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBox_FindCondition.ToolTipText = "按条件查询停车位";
+            // 
+            // splitContainer_main
+            // 
+            this.splitContainer_main.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitContainer_main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer_main.Location = new System.Drawing.Point(0, 50);
+            this.splitContainer_main.Name = "splitContainer_main";
+            // 
+            // splitContainer_main.Panel1
+            // 
+            this.splitContainer_main.Panel1.AutoScroll = true;
+            this.splitContainer_main.Panel1.Controls.Add(this.treeView_DataBase);
+            // 
+            // splitContainer_main.Panel2
+            // 
+            this.splitContainer_main.Panel2.Controls.Add(this.tabControl_ShowTables);
+            this.splitContainer_main.Size = new System.Drawing.Size(619, 316);
+            this.splitContainer_main.SplitterDistance = 135;
+            this.splitContainer_main.TabIndex = 3;
+            // 
+            // treeView_DataBase
+            // 
+            this.treeView_DataBase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView_DataBase.Enabled = false;
+            this.treeView_DataBase.Location = new System.Drawing.Point(0, 0);
+            this.treeView_DataBase.Name = "treeView_DataBase";
+            treeNode1.Name = "节点_DataBase";
+            treeNode1.Text = "数据库名称";
+            this.treeView_DataBase.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.treeView_DataBase.Size = new System.Drawing.Size(133, 314);
+            this.treeView_DataBase.TabIndex = 0;
+            this.treeView_DataBase.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OnTreeViewShowTable);
+            // 
+            // tabControl_ShowTables
+            // 
+            this.tabControl_ShowTables.Controls.Add(this.tabPage_Table);
+            this.tabControl_ShowTables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl_ShowTables.Enabled = false;
+            this.tabControl_ShowTables.Location = new System.Drawing.Point(0, 0);
+            this.tabControl_ShowTables.Name = "tabControl_ShowTables";
+            this.tabControl_ShowTables.SelectedIndex = 0;
+            this.tabControl_ShowTables.Size = new System.Drawing.Size(478, 314);
+            this.tabControl_ShowTables.TabIndex = 0;
+            // 
+            // tabPage_Table
+            // 
+            this.tabPage_Table.Controls.Add(this.dataGridView_tables);
+            this.tabPage_Table.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Table.Name = "tabPage_Table";
+            this.tabPage_Table.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Table.Size = new System.Drawing.Size(470, 288);
+            this.tabPage_Table.TabIndex = 0;
+            this.tabPage_Table.Text = "数据库表信息";
+            this.tabPage_Table.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView_tables
+            // 
+            this.dataGridView_tables.AllowUserToResizeRows = false;
+            this.dataGridView_tables.BackgroundColor = System.Drawing.Color.LightGray;
+            this.dataGridView_tables.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView_tables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_tables.ContextMenuStrip = this.contextMenuStrip_InGridView;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_tables.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView_tables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_tables.Enabled = false;
+            this.dataGridView_tables.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridView_tables.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView_tables.Name = "dataGridView_tables";
+            this.dataGridView_tables.RowTemplate.Height = 23;
+            this.dataGridView_tables.Size = new System.Drawing.Size(464, 282);
+            this.dataGridView_tables.TabIndex = 0;
+            this.dataGridView_tables.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView_tables_RowPostPaint);
+            // 
+            // contextMenuStrip_InGridView
+            // 
+            this.contextMenuStrip_InGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem_delete,
+            this.保存到数据库ToolStripMenuItem,
+            this.从数据库属性列表ToolStripMenuItem});
+            this.contextMenuStrip_InGridView.Name = "contextMenuStrip_InGridView";
+            this.contextMenuStrip_InGridView.Size = new System.Drawing.Size(173, 70);
+            // 
+            // toolStripMenuItem_delete
+            // 
+            this.toolStripMenuItem_delete.Name = "toolStripMenuItem_delete";
+            this.toolStripMenuItem_delete.Size = new System.Drawing.Size(172, 22);
+            this.toolStripMenuItem_delete.Text = "删除行";
+            this.toolStripMenuItem_delete.Click += new System.EventHandler(this.toolStripMenuItem_delete_Click);
+            // 
+            // 保存到数据库ToolStripMenuItem
+            // 
+            this.保存到数据库ToolStripMenuItem.Name = "保存到数据库ToolStripMenuItem";
+            this.保存到数据库ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.保存到数据库ToolStripMenuItem.Text = "保存到数据库";
+            this.保存到数据库ToolStripMenuItem.Click += new System.EventHandler(this.保存到数据库ToolStripMenuItem_Click);
+            // 
+            // 从数据库属性列表ToolStripMenuItem
+            // 
+            this.从数据库属性列表ToolStripMenuItem.Name = "从数据库属性列表ToolStripMenuItem";
+            this.从数据库属性列表ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.从数据库属性列表ToolStripMenuItem.Text = "从数据库刷新列表";
+            this.从数据库属性列表ToolStripMenuItem.Click += new System.EventHandler(this.从数据库属性列表ToolStripMenuItem_Click);
+            // 
+            // 条件查询ToolStripMenuItem
+            // 
+            this.条件查询ToolStripMenuItem.Name = "条件查询ToolStripMenuItem";
+            this.条件查询ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.条件查询ToolStripMenuItem.Text = "条件查询";
+            this.条件查询ToolStripMenuItem.Click += new System.EventHandler(this.条件查询ToolStripMenuItem_Click);
             // 
             // toolStripButton_connection
             // 
@@ -295,132 +462,42 @@
             this.toolStripButton_stopUpdate.Text = "停止自动更新";
             this.toolStripButton_stopUpdate.Click += new System.EventHandler(this.toolStripButton_stopUpdate_Click);
             // 
-            // toolStripSeparator2
+            // toolStripButton_ShowParkInfo
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripButton_ShowParkInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_ShowParkInfo.Image = global::ParkingDBMS.Properties.Resources.显示停车位信息;
+            this.toolStripButton_ShowParkInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ShowParkInfo.Name = "toolStripButton_ShowParkInfo";
+            this.toolStripButton_ShowParkInfo.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_ShowParkInfo.Text = "显示停车位信息";
+            this.toolStripButton_ShowParkInfo.Click += new System.EventHandler(this.toolStripButton_ShowParkInfo_Click);
             // 
-            // splitContainer_main
+            // toolStripButton_Choose
             // 
-            this.splitContainer_main.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer_main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer_main.Location = new System.Drawing.Point(0, 50);
-            this.splitContainer_main.Name = "splitContainer_main";
+            this.toolStripButton_Choose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_Choose.Image = global::ParkingDBMS.Properties.Resources.选择;
+            this.toolStripButton_Choose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_Choose.Name = "toolStripButton_Choose";
+            this.toolStripButton_Choose.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_Choose.Text = "查找";
+            this.toolStripButton_Choose.Click += new System.EventHandler(this.toolStripButton_Choose_Click);
             // 
-            // splitContainer_main.Panel1
+            // toolStripButton_条件查询
             // 
-            this.splitContainer_main.Panel1.AutoScroll = true;
-            this.splitContainer_main.Panel1.Controls.Add(this.treeView_DataBase);
-            // 
-            // splitContainer_main.Panel2
-            // 
-            this.splitContainer_main.Panel2.Controls.Add(this.tabControl_ShowTables);
-            this.splitContainer_main.Size = new System.Drawing.Size(784, 489);
-            this.splitContainer_main.SplitterDistance = 172;
-            this.splitContainer_main.TabIndex = 3;
-            // 
-            // treeView_DataBase
-            // 
-            this.treeView_DataBase.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView_DataBase.Enabled = false;
-            this.treeView_DataBase.Location = new System.Drawing.Point(0, 0);
-            this.treeView_DataBase.Name = "treeView_DataBase";
-            treeNode1.Name = "节点_DataBase";
-            treeNode1.Text = "数据库名称";
-            this.treeView_DataBase.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeView_DataBase.Size = new System.Drawing.Size(170, 487);
-            this.treeView_DataBase.TabIndex = 0;
-            this.treeView_DataBase.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OnTreeViewShowTable);
-            // 
-            // tabControl_ShowTables
-            // 
-            this.tabControl_ShowTables.Controls.Add(this.tabPage_Table);
-            this.tabControl_ShowTables.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl_ShowTables.Enabled = false;
-            this.tabControl_ShowTables.Location = new System.Drawing.Point(0, 0);
-            this.tabControl_ShowTables.Name = "tabControl_ShowTables";
-            this.tabControl_ShowTables.SelectedIndex = 0;
-            this.tabControl_ShowTables.Size = new System.Drawing.Size(606, 487);
-            this.tabControl_ShowTables.TabIndex = 0;
-            // 
-            // tabPage_Table
-            // 
-            this.tabPage_Table.Controls.Add(this.dataGridView_tables);
-            this.tabPage_Table.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Table.Name = "tabPage_Table";
-            this.tabPage_Table.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Table.Size = new System.Drawing.Size(598, 461);
-            this.tabPage_Table.TabIndex = 0;
-            this.tabPage_Table.Text = "表名";
-            this.tabPage_Table.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView_tables
-            // 
-            this.dataGridView_tables.AllowUserToResizeRows = false;
-            this.dataGridView_tables.BackgroundColor = System.Drawing.Color.LightGray;
-            this.dataGridView_tables.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView_tables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_tables.ContextMenuStrip = this.contextMenuStrip_InGridView;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_tables.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView_tables.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_tables.Enabled = false;
-            this.dataGridView_tables.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridView_tables.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView_tables.Name = "dataGridView_tables";
-            this.dataGridView_tables.RowTemplate.Height = 23;
-            this.dataGridView_tables.Size = new System.Drawing.Size(592, 455);
-            this.dataGridView_tables.TabIndex = 0;
-            // 
-            // contextMenuStrip_InGridView
-            // 
-            this.contextMenuStrip_InGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem_delete,
-            this.保存到数据库ToolStripMenuItem,
-            this.从数据库属性列表ToolStripMenuItem});
-            this.contextMenuStrip_InGridView.Name = "contextMenuStrip_InGridView";
-            this.contextMenuStrip_InGridView.Size = new System.Drawing.Size(173, 70);
-            // 
-            // toolStripMenuItem_delete
-            // 
-            this.toolStripMenuItem_delete.Name = "toolStripMenuItem_delete";
-            this.toolStripMenuItem_delete.Size = new System.Drawing.Size(172, 22);
-            this.toolStripMenuItem_delete.Text = "删除行";
-            this.toolStripMenuItem_delete.Click += new System.EventHandler(this.toolStripMenuItem_delete_Click);
-            // 
-            // 保存到数据库ToolStripMenuItem
-            // 
-            this.保存到数据库ToolStripMenuItem.Name = "保存到数据库ToolStripMenuItem";
-            this.保存到数据库ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.保存到数据库ToolStripMenuItem.Text = "保存到数据库";
-            this.保存到数据库ToolStripMenuItem.Click += new System.EventHandler(this.保存到数据库ToolStripMenuItem_Click);
-            // 
-            // 从数据库属性列表ToolStripMenuItem
-            // 
-            this.从数据库属性列表ToolStripMenuItem.Name = "从数据库属性列表ToolStripMenuItem";
-            this.从数据库属性列表ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.从数据库属性列表ToolStripMenuItem.Text = "从数据库刷新列表";
-            this.从数据库属性列表ToolStripMenuItem.Click += new System.EventHandler(this.从数据库属性列表ToolStripMenuItem_Click);
-            // 
-            // 开启视频检测ToolStripMenuItem
-            // 
-            this.开启视频检测ToolStripMenuItem.Name = "开启视频检测ToolStripMenuItem";
-            this.开启视频检测ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.开启视频检测ToolStripMenuItem.Text = "开启视频检测";
-            this.开启视频检测ToolStripMenuItem.Click += new System.EventHandler(this.开启视频检测ToolStripMenuItem_Click);
+            this.toolStripButton_条件查询.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_条件查询.Image = global::ParkingDBMS.Properties.Resources.条件查询;
+            this.toolStripButton_条件查询.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_条件查询.Name = "toolStripButton_条件查询";
+            this.toolStripButton_条件查询.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_条件查询.Text = "条件查询";
+            this.toolStripButton_条件查询.ToolTipText = "条件查询";
+            this.toolStripButton_条件查询.Click += new System.EventHandler(this.toolStripButton_条件查询_Click);
             // 
             // ParkingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(619, 388);
             this.Controls.Add(this.splitContainer_main);
             this.Controls.Add(this.toolStrip_main);
             this.Controls.Add(this.statusStrip1);
@@ -429,8 +506,7 @@
             this.MainMenuStrip = this.menuStrip_main;
             this.Name = "ParkingView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "基于视频的停车场车位状态信息检测与管理系统";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Text = "基于视频的停车场车位状态信息监测与管理系统";
             this.menuStrip_main.ResumeLayout(false);
             this.menuStrip_main.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -502,6 +578,17 @@
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 开启视频检测ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ShowParkInfo;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox_FindCondition;
+        private System.Windows.Forms.ToolStripButton toolStripButton_Choose;
+
+
+        bool stop_refresh_screen;
+        string stopcmd;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem 停止刷新界面ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 条件查询ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton_条件查询;
     }
 }
 

@@ -110,6 +110,12 @@
     <Compile Include="ShowInfo.Designer.cs">
       <DependentUpon>ShowInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="信息发布菜单\ConditionalChoose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="信息发布菜单\ConditionalChoose.Designer.cs">
+      <DependentUpon>ConditionalChoose.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ConnDBDialog.resx">
       <DependentUpon>ConnDBDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,6 +137,9 @@
     </Compile>
     <EmbeddedResource Include="ShowInfo.resx">
       <DependentUpon>ShowInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="信息发布菜单\ConditionalChoose.resx">
+      <DependentUpon>ConditionalChoose.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
@@ -235,6 +244,18 @@
       <Project>{eb7e4469-b8d2-459d-97e0-0487fa6ba9ab}</Project>
       <Name>CheckStates_py</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\显示停车位信息.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\搜索.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\选择.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\条件查询.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

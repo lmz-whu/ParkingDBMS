@@ -83,9 +83,49 @@ namespace ParkingDBMS.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 搜索 {
+            get {
+                object obj = ResourceManager.GetObject("搜索", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 显示停车位信息 {
+            get {
+                object obj = ResourceManager.GetObject("显示停车位信息", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 条件查询 {
+            get {
+                object obj = ResourceManager.GetObject("条件查询", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 连接 {
             get {
                 object obj = ResourceManager.GetObject("连接", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 选择 {
+            get {
+                object obj = ResourceManager.GetObject("选择", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
